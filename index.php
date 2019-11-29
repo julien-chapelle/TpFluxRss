@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -55,16 +56,55 @@
         <!-- Body début-->
         <div class="container-fluid m-0">
             <div class="row d-flex text-left justify-content-around mt-4">
-                <div class="card text-white bg-primary mb-3" style="max-width: 18rem;">
+                <div class="card text-white bg-primary mb-3" style="max-width: 25rem;">
                     <div class="card-header">Sujet 1</div>
                     <div class="card-body">
                         <h5 class="card-title">Articles récents</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                        <div class="row border border-light">
+                            <div class="col p-0">
+                                <div class="bg-warning"></div>
+                            </div>
+                            <div class="col p-0">
+                                <p class="card-text">Twitter s’apprête à changer complètement le mode d’affichage des conversations</p>
+                            </div>
+                            <div class="col p-0">
+                                <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modalSujet1T1">LOUPE</button>
+                            </div>
+                            <div class="col p-0">
+                                <a class="btn btn-danger btn-sm" href="https://www.01net.com/actualites/twitter-s-apprete-a-changer-completement-le-mode-d-affichage-des-conversations-1814657.html" target="_blank">LIEN VERS ARTICLE</a>
+                            </div>
+                        </div>
+                        <div class="row border border-light">
+                            <div class="col p-0">
+                                <div class="bg-warning"></div>
+                            </div>
+                            <div class="col p-0">
+                                <p class="card-text">TITRE 2</p>
+                            </div>
+                            <div class="col p-0">
+                                <button class="btn btn-danger btn-sm">LOUPE</button>
+                            </div>
+                            <div class="col p-0">
+                                <button class="btn btn-danger btn-sm">LIEN VERS ARTICLE</button>
+                            </div>
+                        </div>
+                        <div class="row border border-light">
+                            <div class="col p-0">
+                                <div class="bg-warning"></div>
+                            </div>
+                            <div class="col p-0">
+                                <p class="card-text">TITRE 3</p>
+                            </div>
+                            <div class="col p-0">
+                                <button class="btn btn-danger btn-sm">LOUPE</button>
+                            </div>
+                            <div class="col p-0">
+                                <button class="btn btn-danger btn-sm">LIEN VERS ARTICLE</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="card text-white bg-primary mb-3" style="max-width: 18rem;">
+                <div class="card text-white bg-primary mb-3" style="max-width: 25rem;">
                     <div class="card-header">Sujet 2</div>
                     <div class="card-body">
                         <h5 class="card-title">Articles récents</h5>
@@ -73,7 +113,7 @@
                         <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
                     </div>
                 </div>
-                <div class="card text-white bg-primary mb-3" style="max-width: 18rem;">
+                <div class="card text-white bg-primary mb-3" style="max-width: 25rem;">
                     <div class="card-header">Sujet 3</div>
                     <div class="card-body">
                         <h5 class="card-title">Articles récents</h5>
@@ -84,6 +124,31 @@
                 </div>
             </div>
         </div>
+        <!-- Modal Sujet 1 - Titre 1 -->
+        <div class="modal fade" id="modalSujet1T1" tabindex="-1" role="dialog" aria-labelledby="modalSujet1T1" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <p>Thu, 28 Nov 2019 </p>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body text-center">
+                        <div class="row">
+                            <h5 class="modal-title" id="exampleModalLabel">Twitter s’apprête à changer complètement le mode d’affichage des conversations</h5>
+                        </div>
+                        <div><img src="https://img.bfmtv.com/c/150/100/865/422853b4d0916a93d2ff196c37220.jpeg" /></div>
+                        <P>Après plusieurs mois de test, le réseau social va modifier en profondeur la manière dont il affiche les réponses sous les tweets. Cette nouveauté sera déployée pour tous en 2020.</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Fermer</button>
+                        <a class="btn btn-danger btn-sm" href="https://www.01net.com/actualites/twitter-s-apprete-a-changer-completement-le-mode-d-affichage-des-conversations-1814657.html" target="_blank">LIEN VERS ARTICLE</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Modal Sujet 1 - Titre 1 -->
 
         <!-- Scrollup début -->
         <div id="scrollUp">
