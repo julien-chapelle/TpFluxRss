@@ -1,3 +1,22 @@
+<?php
+$url = "https://www.01net.com/rss/actualites/applis-logiciels/"; /* insérer ici l'adresse du flux RSS de votre choix */
+$rss = simplexml_load_file($url);
+echo '<ul>';
+// var_dump($rss);
+$itemIndex = 1;
+foreach ($rss->channel->item as $item) {
+    // var_dump($item);
+    $datetime = date_create($item->pubDate);
+    $date = date_format($datetime, 'd M Y, H\hi');
+    echo '<li><a href="' . $item->link . '">' . ($item->title) . ($item->description) . '</a> (' . $date . ')</li>';
+    $itemIndex++;
+    if ($itemIndex > 3) {
+        break;
+    };
+};
+echo '</ul>';
+
+?>
 
 <!DOCTYPE html>
 <html lang="fr">
@@ -7,6 +26,8 @@
     <title>Projet Php</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <!-- Flux RSS -->
+    <link rel="alternate" type="application/rss+xml" href="https://www.01net.com/rss/actualites/applis-logiciels/" />
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous" />
     <!-- Material Design Bootstrap -->
@@ -61,46 +82,24 @@
                     <div class="card-body">
                         <h5 class="card-title">Articles récents</h5>
                         <div class="row border border-light">
-                            <div class="col p-0">
-                                <div class="bg-warning"></div>
-                            </div>
-                            <div class="col p-0">
-                                <p class="card-text">Twitter s’apprête à changer complètement le mode d’affichage des conversations</p>
-                            </div>
-                            <div class="col p-0">
-                                <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modalSujet1T1">LOUPE</button>
-                            </div>
-                            <div class="col p-0">
-                                <a class="btn btn-danger btn-sm" href="https://www.01net.com/actualites/twitter-s-apprete-a-changer-completement-le-mode-d-affichage-des-conversations-1814657.html" target="_blank">LIEN VERS ARTICLE</a>
-                            </div>
-                        </div>
-                        <div class="row border border-light">
-                            <div class="col p-0">
-                                <div class="bg-warning"></div>
-                            </div>
-                            <div class="col p-0">
-                                <p class="card-text">TITRE 2</p>
-                            </div>
-                            <div class="col p-0">
-                                <button class="btn btn-danger btn-sm">LOUPE</button>
-                            </div>
-                            <div class="col p-0">
-                                <button class="btn btn-danger btn-sm">LIEN VERS ARTICLE</button>
-                            </div>
-                        </div>
-                        <div class="row border border-light">
-                            <div class="col p-0">
-                                <div class="bg-warning"></div>
-                            </div>
-                            <div class="col p-0">
-                                <p class="card-text">TITRE 3</p>
-                            </div>
-                            <div class="col p-0">
-                                <button class="btn btn-danger btn-sm">LOUPE</button>
-                            </div>
-                            <div class="col p-0">
-                                <button class="btn btn-danger btn-sm">LIEN VERS ARTICLE</button>
-                            </div>
+                            <?php
+                            $url = "https://www.01net.com/rss/actualites/applis-logiciels/"; /* insérer ici l'adresse du flux RSS de votre choix */
+                            $rss = simplexml_load_file($url);
+                            echo '<ul>';
+
+                            foreach ($rss->channel->item as $item) {
+                                $stop = 0;
+                                $nbFlux = 3;
+                                while ($stop < $nbFlux) {
+                                    $datetime = date_create($item->pubDate);
+                                    $date = date_format($datetime, 'd M Y, H\hi');
+                                    echo '<li><a href="' . $item->link . '">' . utf8_decode($item->title) . '</a> (' . $date . ')</li>';
+                                    $stop++;
+                                };
+                                break;
+                            }
+                            echo '</ul>';
+                            ?>
                         </div>
                     </div>
                 </div>
