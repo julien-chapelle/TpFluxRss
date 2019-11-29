@@ -1,0 +1,18 @@
+.head {
+    height: 5rem;
+}
+
+/* scrollUp button */
+#scrollUp {
+    position: fixed;
+    bottom: 1px;
+    right: -100px;
+    font-size: 35px;
+}
+
+.scrollUpColor {
+    color: #7ad19e;
+    opacity: 0.7;
+}
+
+/* scrollUp button */
