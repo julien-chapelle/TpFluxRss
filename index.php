@@ -1,23 +1,23 @@
 <?php
-$url = "https://www.01net.com/rss/actualites/applis-logiciels/"; /* insérer ici l'adresse du flux RSS de votre choix */
-$rss = simplexml_load_file($url);
-echo '<ul>';
-// var_dump($rss);
-$itemIndex = 1;
-foreach ($rss->channel->item as $item) {
-    // var_dump($item);
-    $datetime = date_create($item->pubDate);
-    $date = date_format($datetime, 'd M Y, H\hi');
-    echo '<li><a href="' . $item->link . '">' . ($item->title) . ($item->description) . '</a> (' . $date . ')</li>';
-    $itemIndex++;
-    if ($itemIndex > 3) {
-        break;
+if (isset($_POST['choice'])) {
+    if (!isset($_COOKIE)) {
+        setcookie('selectTheme', $_POST['selectTheme'], time() + (86400));
+        setcookie('selectNbFlux', $_POST['selectNbFlux'], time() + (86400));
+        header('refresh: 0');
+    } elseif (isset($_COOKIE)) {
+        setcookie('selectTheme', '', time() - (3600));
+        setcookie('selectNbFlux', '', time() - (3600));
+        setcookie('selectTheme', $_POST['selectTheme'], time() + (86400));
+        setcookie('selectNbFlux', $_POST['selectNbFlux'], time() + (86400));
+        header('refresh: 0');
     };
 };
-echo '</ul>';
-
+if (isset($_COOKIE['selectNbFlux'])) {
+    $nbFlux = intval($_COOKIE['selectNbFlux']);
+} else {
+    $nbFlux = 3;
+};
 ?>
-
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -26,147 +26,297 @@ echo '</ul>';
     <title>Projet Php</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- Flux RSS -->
-    <link rel="alternate" type="application/rss+xml" href="https://www.01net.com/rss/actualites/applis-logiciels/" />
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" />
     <!-- Material Design Bootstrap -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.10/css/mdb.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="assets/style.css" />
     <link href="https://fonts.googleapis.com/css?family=Raleway&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" />
-
-
 </head>
 
-<body>
-    <div class="container-fluide m-0">
-        <!-- Header début -->
-        <div class="container-fluide">
-            <header class="head row justify-content-end bg-dark m-0">
-
-            </header>
+<body id="colorBody">
+    <div class="container-fluid">
+        <div id="colorHeader">
+            <h1 class="display-4">SUPER CSS READER</h1>
+            <p class="lead">By Julien, Romain, Sofiane, Noémie</p>
         </div>
-        <!-- Header Fin -->
         <!--NavBar début -->
-        <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
-            <a class="navbar-brand" href="index.php">LOGO</a>
+        <nav class="navbar navStyle navbar-expand-lg sticky-top" name="nav" id="colorNav">
+            <a class="navbar-brand" href="index.php"><img src="/assets/rss.webp" alt="rss" style="width: 70px;" /></a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span><i class="far fa-caret-square-down"></i></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="pages/software.php">Sujet 1</a>
+                        <a class="nav-link" href="pages/software.php">Sécurité</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="pages/security.php">Sujet 2</a>
+                        <a class="nav-link" href="pages/security.php">Software</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="pages/subject.php">Sujet 3</a>
+                        <a class="nav-link" href="pages/subject.php">Jeux</a>
                     </li>
                 </ul>
-                <ul class="navbar-nav justify-content-end">
-                    <li class="nav-item">
-                        <a class="nav-link sizeFontUser" href="#" data-toggle="modal" data-target="#signIn"><i class="fas fa-cogs"></i> Paramètre</a>
-                    </li>
-                </ul>
+                <form action="index.php" method="POST">
+                    <ul class="navbar-nav justify-content-end">
+                        <li class="nav-item my-auto m-2">
+                            <select class="form-control" id="fluxChoice" name="selectTheme">
+                                <option selected>Choisir un thème...</option>
+                                <option value="blackButton" id="blackButton" class="black">Thème black</option>
+                                <option value="blueButton" id="blueButton" class="blue">Thème blue</option>
+                                <option value="redButton" id="redButton" class="red">Thème red</option>
+                            </select>
+                        </li>
+                        <li class="nav-item my-auto m-2">
+                            <select class="form-control" id="fluxChoice" name="selectNbFlux">
+                                <option selected>Affichage des flux...</option>
+                                <option value="3">Afficher 3 flux RSS</option>
+                                <option value="5">Afficher 5 flux RSS</option>
+                                <option value="8">Afficher 8 flux RSS</option>
+                            </select>
+                        </li>
+                        <li class="nav-item">
+                            <button type="submit" name="choice" class="btn btn-sm ml-3">Valider</button>
+                        </li>
+                    </ul>
+                </form>
             </div>
         </nav>
-        <!--NavBar fin-->
-        <!-- Body début-->
-        <div class="container-fluid m-0">
-            <div class="row d-flex text-left justify-content-around mt-4">
-                <div class="card text-white bg-primary mb-3" style="max-width: 25rem;">
-                    <div class="card-header">Sujet 1</div>
-                    <div class="card-body">
-                        <h5 class="card-title">Articles récents</h5>
-                        <div class="row border border-light">
-                            <?php
-                            $url = "https://www.01net.com/rss/actualites/applis-logiciels/"; /* insérer ici l'adresse du flux RSS de votre choix */
-                            $rss = simplexml_load_file($url);
-                            echo '<ul>';
-
-                            foreach ($rss->channel->item as $item) {
-                                $stop = 0;
-                                $nbFlux = 3;
-                                while ($stop < $nbFlux) {
-                                    $datetime = date_create($item->pubDate);
-                                    $date = date_format($datetime, 'd M Y, H\hi');
-                                    echo '<li><a href="' . $item->link . '">' . utf8_decode($item->title) . '</a> (' . $date . ')</li>';
-                                    $stop++;
-                                };
-                                break;
-                            }
-                            echo '</ul>';
-                            ?>
-                        </div>
-                    </div>
-                </div>
-                <div class="card text-white bg-primary mb-3" style="max-width: 25rem;">
-                    <div class="card-header">Sujet 2</div>
-                    <div class="card-body">
-                        <h5 class="card-title">Articles récents</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                    </div>
-                </div>
-                <div class="card text-white bg-primary mb-3" style="max-width: 25rem;">
-                    <div class="card-header">Sujet 3</div>
-                    <div class="card-body">
-                        <h5 class="card-title">Articles récents</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Modal Sujet 1 - Titre 1 -->
-        <div class="modal fade" id="modalSujet1T1" tabindex="-1" role="dialog" aria-labelledby="modalSujet1T1" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <p>Thu, 28 Nov 2019 </p>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body text-center">
-                        <div class="row">
-                            <h5 class="modal-title" id="exampleModalLabel">Twitter s’apprête à changer complètement le mode d’affichage des conversations</h5>
-                        </div>
-                        <div><img src="https://img.bfmtv.com/c/150/100/865/422853b4d0916a93d2ff196c37220.jpeg" /></div>
-                        <P>Après plusieurs mois de test, le réseau social va modifier en profondeur la manière dont il affiche les réponses sous les tweets. Cette nouveauté sera déployée pour tous en 2020.</p>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Fermer</button>
-                        <a class="btn btn-danger btn-sm" href="https://www.01net.com/actualites/twitter-s-apprete-a-changer-completement-le-mode-d-affichage-des-conversations-1814657.html" target="_blank">LIEN VERS ARTICLE</a>
-                    </div>
+        <div class="row d-flex text-left justify-content-around mt-4">
+            <!-- CARD SUJET 1 DEBUT -->
+            <div class="card cardColor mb-3 mx-3" style="max-width: 25rem;">
+                <div class="card-header">Applis-logiciels</div>
+                <div class="card-body">
+                    <h5 class="card-title">Derniers articles</h5>
+                    <?php
+                    $url = 'https://www.01net.com/rss/actualites/applis-logiciels/'; /* insérer ici l'adresse du flux RSS de votre choix */
+                    $rss = simplexml_load_file($url);
+                    $indexModal = 1;
+                    $itemIndex = 1;
+                    foreach ($rss->channel->item as $item) {
+                        $datetime = date_create($item->pubDate);
+                        $date = date_format($datetime, 'd M Y, H\hi');
+                        $description = $item->description;
+                        $descriptionText = explode('<br/>', $description); ?>
+                        <?= '<div class="row border-top border-light">
+                                    <div class="col-2 p-0">
+                                        <p class="squareTopic1 rounded m-2"></p>
+                                    </div>
+                                    <div class="col-10 p-0">
+                                        <p>' . $item->title . '</p>
+                                    </div>
+                                </div>
+                                <div class="row border-bottom border-light justify-content-around">
+                                    <div class="col p-0 text-center">
+                                        <button class="btn btn-sm p-1" data-toggle="modal" data-target="#modalS1' .  $indexModal . '">Loupe</button>
+                                    </div>
+                                    <div class="col p-0 text-center">
+                                        <a role="button" target="_blank" class="btn btn-sm p-1" href="' . $item->link . '">Lien vers l\'article</a>
+                                    </div>
+                                </div>
+                                <br /> 
+                                <!-- Modal Sujet 1 -->
+                                <div class="modal fade" id="modalS1' . $indexModal . '" tabindex="-1" role="dialog" aria-labelledby="modalSujet1T1" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <p>' . $date . '</p>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body text-center">
+                                                <div class="row m-0 justify-content-center">
+                                                    <h5 class="modal-title" id="exampleModalLabel">' . $item->title . '</h5>
+                                                </div>
+                                                <div class="row img-fluid m-0 justify-content-center">
+                                                    <img src="' . $item->enclosure['url'] . '" width="400" />
+                                                </div>
+                                                <div class="row m-0 justify-content-center mt-2">
+                                                    <P>' . $descriptionText[0] . '</p>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Fermer</button>
+                                                <a class="btn btn-danger btn-sm" href="' . $item->link . '" target="_blank">LIEN VERS ARTICLE</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Modal Sujet 1 -->' ?>
+                    <?php $itemIndex++;
+                        $indexModal++;
+                        if ($itemIndex > $nbFlux) {
+                            break;
+                        };
+                    }; ?>
                 </div>
             </div>
+            <!-- CARD SUJET 1 FIN -->
+            <!-- CARD SUJET 2 DEBUT -->
+            <div class="card cardColor mb-3 mx-3" style="max-width: 25rem;">
+                <div class="card-header">Sécurité</div>
+                <div class="card-body">
+                    <h5 class="card-title">Derniers articles</h5>
+                    <?php
+                    $url = 'https://www.01net.com/rss/actualites/securite/'; /* insérer ici l'adresse du flux RSS de votre choix */
+                    $rss = simplexml_load_file($url);
+                    $indexModal = 1;
+                    $itemIndex = 1;
+                    foreach ($rss->channel->item as $item) {
+                        $datetime = date_create($item->pubDate);
+                        $date = date_format($datetime, 'd M Y, H\hi');
+                        $description = $item->description;
+                        $descriptionText = explode('<br/>', $description); ?>
+                        <?= '<div class="row border-top border-light">
+                                    <div class="col-2 p-0">
+                                        <p class="squareTopic2 rounded m-2"></p>
+                                    </div>
+                                    <div class="col-10 p-0">
+                                        <p>' . $item->title . '</p>
+                                    </div>
+                                </div>
+                                <div class="row border-bottom border-light justify-content-around">
+                                    <div class="col p-0 text-center">
+                                        <button class="btn  btn-sm p-1" data-toggle="modal" data-target="#modalS2' .  $indexModal . '">Loupe</button>
+                                    </div>
+                                    <div class="col p-0 text-center">
+                                        <a role="button" target="_blank" class="btn btn-sm p-1" href="' . $item->link . '">Lien vers l\'article</a>
+                                    </div>
+                                </div>
+                                <br /> 
+                                <!-- Modal Sujet 1 -->
+                                <div class="modal fade" id="modalS2' . $indexModal . '" tabindex="-1" role="dialog" aria-labelledby="modalSujet1T1" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <p>' . $date . '</p>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body text-center">
+                                                <div class="row m-0 justify-content-center">
+                                                    <h5 class="modal-title" id="exampleModalLabel">' . $item->title . '</h5>
+                                                </div>
+                                                <div class="row img-fluid m-0 justify-content-center">
+                                                    <img src="' . $item->enclosure['url'] . '" width="400" />
+                                                </div>
+                                                <div class="row m-0 justify-content-center mt-2">
+                                                    <P>' . $descriptionText[0] . '</p>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-sm" data-dismiss="modal">Fermer</button>
+                                                <a class="btn btn-sm" href="' . $item->link . '" target="_blank">LIEN VERS ARTICLE</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Modal Sujet 1 -->' ?>
+                    <?php $itemIndex++;
+                        $indexModal++;
+                        if ($itemIndex > $nbFlux) {
+                            break;
+                        };
+                    }; ?>
+                </div>
+            </div>
+            <!-- CARD SUJET 2 FIN -->
+            <!-- CARD SUJET 3 DEBUT -->
+            <div class="card cardColor mb-3 mx-3" style="max-width: 25rem;">
+                <div class="card-header">Jeux</div>
+                <div class="card-body">
+                    <h5 class="card-title">Derniers articles</h5>
+                    <?php
+                    $url = 'https://www.01net.com/rss/actualites/jeux/'; /* insérer ici l'adresse du flux RSS de votre choix */
+                    $rss = simplexml_load_file($url);
+                    $indexModal = 1;
+                    $itemIndex = 1;
+                    foreach ($rss->channel->item as $item) {
+                        $datetime = date_create($item->pubDate);
+                        $date = date_format($datetime, 'd M Y, H\hi');
+                        $description = $item->description;
+                        $descriptionText = explode('<br/>', $description); ?>
+                        <?= '<div class="row border-top border-light">
+                                    <div class="col-2 p-0">
+                                        <p class="squareTopic3 rounded m-2"></p>
+                                    </div>
+                                    <div class="col-10 p-0">
+                                        <p>' . $item->title . '</p>
+                                    </div>
+                                </div>
+                                <div class="row border-bottom border-light justify-content-around">
+                                    <div class="col p-0 text-center">
+                                        <button class="btn btn-sm p-1" data-toggle="modal" data-target="#modalS3' .  $indexModal . '">Loupe</button>
+                                    </div>
+                                    <div class="col p-0 text-center">
+                                        <a role="button" target="_blank" class="btn btn-sm p-1" href="' . $item->link . '">Lien vers l\'article</a>
+                                    </div>
+                                </div>
+                                <br /> 
+                                <!-- Modal Sujet 1 -->
+                                <div class="modal fade" id="modalS3' . $indexModal . '" tabindex="-1" role="dialog" aria-labelledby="modalSujet1T1" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <p>' . $date . '</p>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body text-center">
+                                                <div class="row m-0 justify-content-center">
+                                                    <h5 class="modal-title" id="exampleModalLabel">' . $item->title . '</h5>
+                                                </div>
+                                                <div class="row img-fluid m-0 justify-content-center">
+                                                    <img src="' . $item->enclosure['url'] . '" width="400" />
+                                                </div>
+                                                <div class="row m-0 justify-content-center mt-2">
+                                                    <P>' . $descriptionText[0] . '</p>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-sm" data-dismiss="modal">Fermer</button>
+                                                <a class="btn btn-sm" href="' . $item->link . '" target="_blank">LIEN VERS ARTICLE</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Modal Sujet 1 -->' ?>
+                    <?php $itemIndex++;
+                        $indexModal++;
+                        if ($itemIndex > $nbFlux) {
+                            break;
+                        };
+                    }; ?>
+                </div>
+            </div>
+            <!-- CARD SUJET 3 FIN -->
         </div>
-        <!-- Modal Sujet 1 - Titre 1 -->
 
-        <!-- Scrollup début -->
-        <div id="scrollUp">
-            <a href="#top" class="scrollUpColor"><i class="far fa-caret-square-up"></i></a>
-        </div>
-        <!-- Scrollup fin -->
     </div>
 
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
+    <!-- Scrollup début -->
+    <div id="scrollUp">
+        <a href="#top" class="scrollUpColor"><i class="far fa-caret-square-up"></i></a>
+    </div>
+    <!-- Scrollup fin -->
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js">
     </script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js">
     </script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js">
     </script>
     <!-- MDB core JavaScript -->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.10/js/mdb.min.js">
     </script>
     <script type="text/javascript" src="assets/script.js"></script>
     <script src="assets/to-top.js"></script>
+
 </body>
 
 </html>

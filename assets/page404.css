@@ -1,0 +1,14 @@
+body{
+    background-image: url("/assets/img/sign.png");
+}
+
+h1{
+    font-weight: bold;
+    margin-left: 10px;
+  
+}
+
+p{
+    font-weight: bold;
+    margin-left: 10px;
+}

@@ -1,18 +1,72 @@
-.head {
-    height: 5rem;
+body {
+    background-color: #a1C349;
 }
 
-/* scrollUp button */
-#scrollUp {
-    position: fixed;
-    bottom: 1px;
-    right: -100px;
-    font-size: 35px;
+.jumbotronStyle {
+    background-color: #a1C349;
+    color: #243010;
+    margin-bottom: 0px !important;
 }
 
-.scrollUpColor {
-    color: #7ad19e;
-    opacity: 0.7;
+.navStyle {
+    margin-top: 0px !important;
+    background-color: #cad593;
+    color: #87a330;
 }
 
-/* scrollUp button */
+.navStyle a {
+    color: #243010;
+}
+
+.card {
+    background-color: #cad593;
+}
+
+.card-header {
+    background-color: #87a330;
+    color: #cad593;
+}
+
+.card .card-title {
+    color: #87a330;
+}
+
+.card a {
+    color: #2a3c24;
+}
+
+.fa-caret-square-up {
+    color: #243010
+}
+
+/* CARRE COULEUR SUJET INDEX */
+.squareTopic1 {
+    height: 2rem;
+    width: 2rem;
+    background-color: crimson;
+}
+
+.squareTopic2 {
+    height: 2rem;
+    width: 2rem;
+    background-color: rgb(63, 20, 220);
+}
+
+.squareTopic3 {
+    height: 2rem;
+    width: 2rem;
+    background-color: rgb(177, 220, 20);
+}
+
+/* CARRE COULEUR SUJET INDEX */
+.black {
+    color: black;
+}
+
+.blue {
+    color: blue;
+}
+
+.red {
+    color: red;
+}
