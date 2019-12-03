@@ -17,7 +17,7 @@
     <div>
         <h1>Oups! Page introuvable</h1>
         <p>Vous avez tenté d’accéder à une page qui ne se trouve plus sur ce site.</br> Veuillez revenir sur la page d'accueil afin de continuer votre navigation sur notre site.</p>
-        <p><a href="http://www.rssfeed.info/index.php">Revenir à l'accueil</a></p>
+        <p><a href="http://projetphp/">Revenir à l'accueil</a></p>
     </div>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
     </script>
