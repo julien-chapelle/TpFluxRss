@@ -17,6 +17,11 @@ if (isset($_COOKIE['selectNbFlux'])) {
 } else {
     $nbFlux = 3;
 };
+if (isset($_COOKIE) && isset($_POST['raz'])) {
+    setcookie('selectTheme', '', time() - (3600));
+    setcookie('selectNbFlux', '', time() - (3600));
+    header('refresh: 0');
+};
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -79,6 +84,9 @@ if (isset($_COOKIE['selectNbFlux'])) {
                         <li class="nav-item">
                             <button type="submit" name="choice" class="btn btn-sm ml-3">Valider</button>
                         </li>
+                        <li class="nav-item">
+                            <button type="submit" name="raz" class="btn btn-sm ml-3">Par défaut</button>
+                        </li>
                     </ul>
                 </form>
             </div>
@@ -99,7 +107,7 @@ if (isset($_COOKIE['selectNbFlux'])) {
                         $date = date_format($datetime, 'd M Y, H\hi');
                         $description = $item->description;
                         $descriptionText = explode('<br/>', $description); ?>
-                        <?= '<div class="row border-top border-light">
+                        <?= '<div class="row border-top border-light news">
                                     <div class="col-2 p-0">
                                         <p class="squareTopic1 rounded m-2"></p>
                                     </div>
@@ -169,7 +177,7 @@ if (isset($_COOKIE['selectNbFlux'])) {
                         $date = date_format($datetime, 'd M Y, H\hi');
                         $description = $item->description;
                         $descriptionText = explode('<br/>', $description); ?>
-                        <?= '<div class="row border-top border-light">
+                        <?= '<div class="row border-top border-light news">
                                     <div class="col-2 p-0">
                                         <p class="squareTopic2 rounded m-2"></p>
                                     </div>
@@ -239,7 +247,7 @@ if (isset($_COOKIE['selectNbFlux'])) {
                         $date = date_format($datetime, 'd M Y, H\hi');
                         $description = $item->description;
                         $descriptionText = explode('<br/>', $description); ?>
-                        <?= '<div class="row border-top border-light">
+                        <?= '<div class="row border-top border-light news">
                                     <div class="col-2 p-0">
                                         <p class="squareTopic3 rounded m-2"></p>
                                     </div>
@@ -295,14 +303,11 @@ if (isset($_COOKIE['selectNbFlux'])) {
             </div>
             <!-- CARD SUJET 3 FIN -->
         </div>
-
-    </div>
-
-    <!-- Scrollup début -->
-    <div id="scrollUp">
-        <a href="#top" class="scrollUpColor"><i class="far fa-caret-square-up"></i></a>
-    </div>
-    <!-- Scrollup fin -->
+        <!-- Scrollup début -->
+        <div id="scrollUp">
+            <a href="#top" class="scrollUpColor"><i class="far fa-caret-square-up"></i></a>
+        </div>
+        <!-- Scrollup fin -->
     </div>
 
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js">

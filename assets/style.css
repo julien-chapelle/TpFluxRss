@@ -43,19 +43,19 @@ body {
 .squareTopic1 {
     height: 2rem;
     width: 2rem;
-    background-color: crimson;
+    background-color: rgba(224, 44, 80, 0.486);
 }
 
 .squareTopic2 {
     height: 2rem;
     width: 2rem;
-    background-color: rgb(63, 20, 220);
+    background-color: rgba(83, 44, 224, 0.486);
 }
 
 .squareTopic3 {
     height: 2rem;
     width: 2rem;
-    background-color: rgb(177, 220, 20);
+    background-color: rgba(44, 224, 89, 0.486);
 }
 
 /* CARRE COULEUR SUJET INDEX */
@@ -69,4 +69,66 @@ body {
 
 .red {
     color: red;
+}
+/* scrollUp button */
+#scrollUp {
+    position: fixed;
+    bottom: 1px;
+    right: -100px;
+    font-size: 35px;
+}
+
+.scrollUpColor {
+    color: #000000;
+    opacity: 0.7;
+}
+
+/* scrollUp button */
+.news {
+    -webkit-transition: all 0.5s ease;
+    /* Safari et Chrome */
+    -moz-transition: all 0.5s ease;
+    /* Firefox */
+    -ms-transition: all 0.5s ease;
+    /* Internet Explorer 9 */
+    -o-transition: all 0.5s ease;
+    /* Opera */
+    transition: all 0.5s ease;
+}
+
+.news:hover {
+    /* L'image est grossie de 25% */
+    -webkit-transform: scale(1.03);
+    /* Safari et Chrome */
+    -moz-transform: scale(1.03);
+    /* Firefox */
+    -ms-transform: scale(1.03);
+    /* Internet Explorer 9 */
+    -o-transform: scale(1.03);
+    /* Opera */
+    transform: scale(1.03);
+}
+.cardSubject {
+    -webkit-transition: all 0.5s ease;
+    /* Safari et Chrome */
+    -moz-transition: all 0.5s ease;
+    /* Firefox */
+    -ms-transition: all 0.5s ease;
+    /* Internet Explorer 9 */
+    -o-transition: all 0.5s ease;
+    /* Opera */
+    transition: all 0.5s ease;
+}
+
+.cardSubject:hover {
+    /* L'image est grossie de 25% */
+    -webkit-transform: scale(1.03);
+    /* Safari et Chrome */
+    -moz-transform: scale(1.03);
+    /* Firefox */
+    -ms-transform: scale(1.03);
+    /* Internet Explorer 9 */
+    -o-transform: scale(1.03);
+    /* Opera */
+    transform: scale(1.03);
 }

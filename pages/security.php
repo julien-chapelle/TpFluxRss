@@ -17,6 +17,11 @@ if (isset($_COOKIE['selectNbFlux'])) {
 } else {
     $nbFlux = 3;
 };
+if (isset($_COOKIE) && isset($_POST['raz'])) {
+    setcookie('selectTheme', '', time() - (3600));
+    setcookie('selectNbFlux', '', time() - (3600));
+    header('refresh: 0');
+};
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -67,9 +72,9 @@ if (isset($_COOKIE['selectNbFlux'])) {
                         <li class="nav-item my-auto m-2">
                             <select class="form-control" id="fluxChoice" name="selectTheme">
                                 <option selected>Choisir un thème...</option>
-                                <option value="1" id="blackButton" class="black">Thème black</option>
-                                <option value="2" id="blueButton" class="blue">Thème blue</option>
-                                <option value="3" id="redButton" class="red">Thème red</option>
+                                <option value="blackButton" id="blackButton" class="black">Thème black</option>
+                                <option value="blueButton" id="blueButton" class="blue">Thème blue</option>
+                                <option value="redButton" id="redButton" class="red">Thème red</option>
                             </select>
                         </li>
                         <li class="nav-item my-auto m-2">
@@ -82,6 +87,9 @@ if (isset($_COOKIE['selectNbFlux'])) {
                         </li>
                         <li class="nav-item">
                             <button type="submit" name="choice" class="btn btn-sm ml-3">Valider</button>
+                        </li>
+                        <li class="nav-item">
+                            <button type="submit" name="raz" class="btn btn-sm ml-3">Par défaut</button>
                         </li>
                     </ul>
                 </form>
@@ -100,7 +108,7 @@ if (isset($_COOKIE['selectNbFlux'])) {
                     $date = date_format($datetime, 'd M Y, H\hi');
                     $descriptions = $item->description;
                     $description = explode('<br/>', $descriptions);
-                    echo ('<div class="card mb-3"">
+                    echo ('<div class="card mb-3 cardSubject">
                                     <div class="row no-gutters">
                                         <div class="col-md-4">
                                             <img src="' . $item->enclosure['url'] . '" class="card-img" alt="...">
