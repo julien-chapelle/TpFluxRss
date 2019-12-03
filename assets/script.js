@@ -11,23 +11,58 @@ $(function () {
         $('#blackButton').html(function () { //Au clic du bouton #blackButton
             $('#fluxButton').css('background-color', '#000'); //Alors tu change la couleur de fond du #fluxButton
             $('#colorButton').css('background-color', '#000'); //Alors tu change la couleur de fond du #colorButton
-            $('#colorBody').css('background-color', '#353535'); //Alors tu change la couleur de fond du body
+            $('#colorBody').css('background-color', '#000'); //Alors tu change la couleur de fond du body
             $('#colorHeader').css({
                 'background-color': '#000',
-                'color': 'white'
+                'color': '#ffffff',
             });
-            $('#colorNav').css('background-color', '#e9f1f7'); //Alors tu change la couleur de fond de la navBar
+            $('#colorNav').css('background-color', '#000'); //Alors tu change la couleur de fond de la navBar
+            $('.navbar-toggler').css('color', '#ffffff'); //couleur logo burger en mode smartphone
+            $('.nav-link').css('color', '#ffffff');
+            $('.buttonStyle1').css({
+                'color': '#ffffff',
+                'background-color': '#000',
+                'border': 'solid 1px #d2d7df'
+            });
+            $('.buttonStyle2').css({
+                'color': '#000',
+                'background-color': '#ffffff',
+                'border': 'solid 1px #000'
+            });
             $('.cardColor').css({
                 'background-color': '#000',
-                'color': 'white'
+                'color': '#ffffff',
+                'border': 'solid 1px #d2d7df'
             });
             $('.card-header').css({
-                'background-color': 'white',
-                'color': '#000'
+                'color': '#f46300',
+                'background-color': '#353535',
             });
             $('.card-title').css({
-                'color': 'white'
+                'color': '#ffffff'
             });
+            $('.modal-header').css({
+                'background-color': '#ffffff',
+                'color': '#000',
+            });
+            $('.modal-title').css({
+                'background-color': '#ffffff',
+                'color': '#000',
+            });
+            $('.modal-description').css({
+                'background-color': '#ffffff',
+                'color': '#000',
+            });
+            $('.cardSubject').css({
+                'background-color': '#000',
+                'color': '#ffffff',
+                'border': 'solid 1px #d2d7df'
+            });
+            $('.fa-caret-square-up').css({
+                'color': '#f46300',
+                'opacity': '0.7'
+            });
+            $('.colorHref').css('color', '#f46300');
         });
     } else if (selectThemeChoice == 'blueButton') {
 
@@ -82,20 +117,55 @@ $(function () {
             $('#colorBody').css('background-color', '#000'); //Alors tu change la couleur de fond du body
             $('#colorHeader').css({
                 'background-color': '#000',
-                'color': 'white',
+                'color': '#ffffff',
             });
-            $('#colorNav').css('background-color', '#e9f1f7'); //Alors tu change la couleur de fond de la navBar
+            $('#colorNav').css('background-color', '#000'); //Alors tu change la couleur de fond de la navBar
+            $('.navbar-toggler').css('color', '#ffffff'); //couleur logo burger en mode smartphone
+            $('.nav-link').css('color', '#ffffff');
+            $('.buttonStyle1').css({
+                'color': '#ffffff',
+                'background-color': '#000',
+                'border': 'solid 1px #d2d7df'
+            });
+            $('.buttonStyle2').css({
+                'color': '#000',
+                'background-color': '#ffffff',
+                'border': 'solid 1px #000'
+            });
             $('.cardColor').css({
                 'background-color': '#000',
                 'color': '#ffffff',
-                'border': 'solid 1px white'
+                'border': 'solid 1px #d2d7df'
             });
             $('.card-header').css({
-                'color': 'white'
+                'color': '#f46300',
+                'background-color': '#353535',
             });
             $('.card-title').css({
-                'color': 'white'
+                'color': '#ffffff'
             });
+            $('.modal-header').css({
+                'background-color': '#ffffff',
+                'color': '#000',
+            });
+            $('.modal-title').css({
+                'background-color': '#ffffff',
+                'color': '#000',
+            });
+            $('.modal-description').css({
+                'background-color': '#ffffff',
+                'color': '#000',
+            });
+            $('.cardSubject').css({
+                'background-color': '#000',
+                'color': '#ffffff',
+                'border': 'solid 1px #d2d7df'
+            });
+            $('.fa-caret-square-up').css({
+                'color': '#f46300',
+                'opacity': '0.7'
+            });
+            $('.colorHref').css('color', '#f46300');
         });
         $('#blueButton').click(function () { //Au clic du bouton #blueButton
             $('#fluxButton').css('background-color', '#0045c5'); //Alors tu change la couleur de fond du #fluxButton

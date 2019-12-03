@@ -1,18 +1,29 @@
 <?php
 if (isset($_POST['choice'])) {
-    if (!isset($_COOKIE)) {
+    if (isset($_POST['selectTheme']) && $_POST['selectTheme'] != 'none' && !isset($_COOKIE['selectTheme'])) {
         setcookie('selectTheme', $_POST['selectTheme'], time() + (86400));
-        setcookie('selectNbFlux', $_POST['selectNbFlux'], time() + (86400));
         header('refresh: 0');
-    } elseif (isset($_COOKIE)) {
-        setcookie('selectTheme', '', time() - (3600));
-        setcookie('selectNbFlux', '', time() - (3600));
-        setcookie('selectTheme', $_POST['selectTheme'], time() + (86400));
+    };
+    
+    if (isset($_POST['selectNbFlux']) && $_POST['selectNbFlux'] != 'none' && !isset($_COOKIE['selectNbFlux'])) {
         setcookie('selectNbFlux', $_POST['selectNbFlux'], time() + (86400));
         header('refresh: 0');
     };
+    
+    if (isset($_COOKIE['selectTheme'])&& isset($_POST['selectTheme']) && $_POST['selectTheme'] != 'none') {
+        setcookie('selectTheme', '', time() - (3600));
+        setcookie('selectTheme', $_POST['selectTheme'], time() + (86400));
+        header('refresh: 0');
+    };
+    
+    if (isset($_COOKIE['selectNbFlux']) && isset($_POST['selectNbFlux']) && $_POST['selectNbFlux'] != 'none') {
+        setcookie('selectNbFlux', '', time() - (3600));
+        setcookie('selectNbFlux', $_POST['selectNbFlux'], time() + (86400));
+        header('refresh: 0');
+    };
+    
 };
-if (isset($_COOKIE['selectNbFlux'])) {
+if (isset($_COOKIE['selectNbFlux']) && $_COOKIE['selectNbFlux'] != 'none') {
     $nbFlux = intval($_COOKIE['selectNbFlux']);
 } else {
     $nbFlux = 3;
@@ -34,7 +45,7 @@ if (isset($_COOKIE) && isset($_POST['raz'])) {
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" />
     <!-- Material Design Bootstrap -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.10/css/mdb.min.css" rel="stylesheet" />
-    <link rel="stylesheet" href="assets/style.css" />
+    <link rel="stylesheet" href="../assets/style.css" />
     <link href="https://fonts.googleapis.com/css?family=Raleway&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" />
 </head>
@@ -47,27 +58,27 @@ if (isset($_COOKIE) && isset($_POST['raz'])) {
         </div>
         <!--NavBar début -->
         <nav class="navbar navStyle navbar-expand-lg sticky-top" name="nav" id="colorNav">
-            <a class="navbar-brand" href="index.php"><img src="/assets/rss.webp" alt="rss" style="width: 70px;" /></a>
+            <a class="navbar-brand" href="index.php"><img src="../assets/rss.webp" alt="rss" style="width: 70px;" /></a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span><i class="far fa-caret-square-down"></i></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="pages/software.php">Sécurité</a>
+                        <a class="nav-link" href="software.php">Sécurité</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="pages/security.php">Software</a>
+                        <a class="nav-link" href="security.php">Software</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="pages/subject.php">Jeux</a>
+                        <a class="nav-link" href="subject.php">Jeux</a>
                     </li>
                 </ul>
                 <form action="index.php" method="POST">
                     <ul class="navbar-nav justify-content-end">
                         <li class="nav-item my-auto m-2">
                             <select class="form-control" id="fluxChoice" name="selectTheme">
-                                <option selected>Choisir un thème...</option>
+                                <option value="none" selected>Choisir un thème...</option>
                                 <option value="blackButton" id="blackButton" class="black">Thème black</option>
                                 <option value="blueButton" id="blueButton" class="blue">Thème blue</option>
                                 <option value="redButton" id="redButton" class="red">Thème red</option>
@@ -75,17 +86,17 @@ if (isset($_COOKIE) && isset($_POST['raz'])) {
                         </li>
                         <li class="nav-item my-auto m-2">
                             <select class="form-control" id="fluxChoice" name="selectNbFlux">
-                                <option selected>Affichage des flux...</option>
+                                <option value="none" selected>Affichage des flux...</option>
                                 <option value="3">Afficher 3 flux RSS</option>
                                 <option value="5">Afficher 5 flux RSS</option>
                                 <option value="8">Afficher 8 flux RSS</option>
                             </select>
                         </li>
                         <li class="nav-item">
-                            <button type="submit" name="choice" class="btn btn-sm ml-3">Valider</button>
+                            <button type="submit" name="choice" class="buttonStyle1 btn btn-sm ml-3">Valider</button>
                         </li>
                         <li class="nav-item">
-                            <button type="submit" name="raz" class="btn btn-sm ml-3">Par défaut</button>
+                            <button type="submit" name="raz" class="buttonStyle1 btn btn-sm ml-3">Par défaut</button>
                         </li>
                     </ul>
                 </form>
@@ -117,10 +128,10 @@ if (isset($_COOKIE) && isset($_POST['raz'])) {
                                 </div>
                                 <div class="row border-bottom border-light justify-content-around">
                                     <div class="col p-0 text-center">
-                                        <button class="btn btn-sm p-1" data-toggle="modal" data-target="#modalS1' .  $indexModal . '">Loupe</button>
+                                        <button class="buttonStyle1 btn btn-sm p-1" data-toggle="modal" data-target="#modalS1' .  $indexModal . '">Loupe</button>
                                     </div>
                                     <div class="col p-0 text-center">
-                                        <a role="button" target="_blank" class="btn btn-sm p-1" href="' . $item->link . '">Lien vers l\'article</a>
+                                        <a role="button" target="_blank" class="buttonStyle1 btn btn-sm p-1" href="' . $item->link . '">Lien vers l\'article</a>
                                     </div>
                                 </div>
                                 <br /> 
@@ -142,12 +153,12 @@ if (isset($_COOKIE) && isset($_POST['raz'])) {
                                                     <img src="' . $item->enclosure['url'] . '" width="400" />
                                                 </div>
                                                 <div class="row m-0 justify-content-center mt-2">
-                                                    <P>' . $descriptionText[0] . '</p>
+                                                    <P class="modal-description">' . $descriptionText[0] . '</p>
                                                 </div>
                                             </div>
                                             <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Fermer</button>
-                                                <a class="btn btn-danger btn-sm" href="' . $item->link . '" target="_blank">LIEN VERS ARTICLE</a>
+                                                <button type="button" class="buttonStyle2 btn btn-sm" data-dismiss="modal">Fermer</button>
+                                                <a class="buttonStyle2 btn btn-sm" href="' . $item->link . '" target="_blank">LIEN VERS ARTICLE</a>
                                             </div>
                                         </div>
                                     </div>
@@ -187,10 +198,10 @@ if (isset($_COOKIE) && isset($_POST['raz'])) {
                                 </div>
                                 <div class="row border-bottom border-light justify-content-around">
                                     <div class="col p-0 text-center">
-                                        <button class="btn  btn-sm p-1" data-toggle="modal" data-target="#modalS2' .  $indexModal . '">Loupe</button>
+                                        <button class="buttonStyle1 btn btn-sm p-1" data-toggle="modal" data-target="#modalS2' .  $indexModal . '">Loupe</button>
                                     </div>
                                     <div class="col p-0 text-center">
-                                        <a role="button" target="_blank" class="btn btn-sm p-1" href="' . $item->link . '">Lien vers l\'article</a>
+                                        <a role="button" target="_blank" class="buttonStyle1 btn btn-sm p-1" href="' . $item->link . '">Lien vers l\'article</a>
                                     </div>
                                 </div>
                                 <br /> 
@@ -212,12 +223,12 @@ if (isset($_COOKIE) && isset($_POST['raz'])) {
                                                     <img src="' . $item->enclosure['url'] . '" width="400" />
                                                 </div>
                                                 <div class="row m-0 justify-content-center mt-2">
-                                                    <P>' . $descriptionText[0] . '</p>
+                                                    <P class="modal-description">' . $descriptionText[0] . '</p>
                                                 </div>
                                             </div>
                                             <div class="modal-footer">
-                                                <button type="button" class="btn btn-sm" data-dismiss="modal">Fermer</button>
-                                                <a class="btn btn-sm" href="' . $item->link . '" target="_blank">LIEN VERS ARTICLE</a>
+                                                <button type="button" class="buttonStyle2 btn btn-sm" data-dismiss="modal">Fermer</button>
+                                                <a class="buttonStyle2 btn btn-sm" href="' . $item->link . '" target="_blank">LIEN VERS ARTICLE</a>
                                             </div>
                                         </div>
                                     </div>
@@ -257,10 +268,10 @@ if (isset($_COOKIE) && isset($_POST['raz'])) {
                                 </div>
                                 <div class="row border-bottom border-light justify-content-around">
                                     <div class="col p-0 text-center">
-                                        <button class="btn btn-sm p-1" data-toggle="modal" data-target="#modalS3' .  $indexModal . '">Loupe</button>
+                                        <button class="buttonStyle1 btn btn-sm p-1" data-toggle="modal" data-target="#modalS3' .  $indexModal . '">Loupe</button>
                                     </div>
                                     <div class="col p-0 text-center">
-                                        <a role="button" target="_blank" class="btn btn-sm p-1" href="' . $item->link . '">Lien vers l\'article</a>
+                                        <a role="button" target="_blank" class="buttonStyle1 btn btn-sm p-1" href="' . $item->link . '">Lien vers l\'article</a>
                                     </div>
                                 </div>
                                 <br /> 
@@ -282,12 +293,12 @@ if (isset($_COOKIE) && isset($_POST['raz'])) {
                                                     <img src="' . $item->enclosure['url'] . '" width="400" />
                                                 </div>
                                                 <div class="row m-0 justify-content-center mt-2">
-                                                    <P>' . $descriptionText[0] . '</p>
+                                                    <P class="modal-description">' . $descriptionText[0] . '</p>
                                                 </div>
                                             </div>
                                             <div class="modal-footer">
-                                                <button type="button" class="btn btn-sm" data-dismiss="modal">Fermer</button>
-                                                <a class="btn btn-sm" href="' . $item->link . '" target="_blank">LIEN VERS ARTICLE</a>
+                                                <button type="button" class="buttonStyle2 btn btn-sm" data-dismiss="modal">Fermer</button>
+                                                <a class="buttonStyle2 btn btn-sm" href="' . $item->link . '" target="_blank">LIEN VERS ARTICLE</a>
                                             </div>
                                         </div>
                                     </div>
@@ -319,8 +330,8 @@ if (isset($_COOKIE) && isset($_POST['raz'])) {
     <!-- MDB core JavaScript -->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.10/js/mdb.min.js">
     </script>
-    <script type="text/javascript" src="assets/script.js"></script>
-    <script src="assets/to-top.js"></script>
+    <script type="text/javascript" src="../assets/script.js"></script>
+    <script src="../assets/to-top.js"></script>
 
 </body>
 

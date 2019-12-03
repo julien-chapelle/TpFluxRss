@@ -1,18 +1,29 @@
 <?php
 if (isset($_POST['choice'])) {
-    if (!isset($_COOKIE)) {
+    if (isset($_POST['selectTheme']) && $_POST['selectTheme'] != 'none' && !isset($_COOKIE['selectTheme'])) {
         setcookie('selectTheme', $_POST['selectTheme'], time() + (86400));
-        setcookie('selectNbFlux', $_POST['selectNbFlux'], time() + (86400));
         header('refresh: 0');
-    } elseif (isset($_COOKIE)) {
-        setcookie('selectTheme', '', time() - (3600));
-        setcookie('selectNbFlux', '', time() - (3600));
-        setcookie('selectTheme', $_POST['selectTheme'], time() + (86400));
+    };
+    
+    if (isset($_POST['selectNbFlux']) && $_POST['selectNbFlux'] != 'none' && !isset($_COOKIE['selectNbFlux'])) {
         setcookie('selectNbFlux', $_POST['selectNbFlux'], time() + (86400));
         header('refresh: 0');
     };
+    
+    if (isset($_COOKIE['selectTheme'])&& isset($_POST['selectTheme']) && $_POST['selectTheme'] != 'none') {
+        setcookie('selectTheme', '', time() - (3600));
+        setcookie('selectTheme', $_POST['selectTheme'], time() + (86400));
+        header('refresh: 0');
+    };
+    
+    if (isset($_COOKIE['selectNbFlux']) && isset($_POST['selectNbFlux']) && $_POST['selectNbFlux'] != 'none') {
+        setcookie('selectNbFlux', '', time() - (3600));
+        setcookie('selectNbFlux', $_POST['selectNbFlux'], time() + (86400));
+        header('refresh: 0');
+    };
+    
 };
-if (isset($_COOKIE['selectNbFlux'])) {
+if (isset($_COOKIE['selectNbFlux']) && $_COOKIE['selectNbFlux'] != 'none') {
     $nbFlux = intval($_COOKIE['selectNbFlux']);
 } else {
     $nbFlux = 3;
@@ -51,7 +62,7 @@ if (isset($_COOKIE) && isset($_POST['raz'])) {
         </div>
         <!--NavBar début -->
         <nav class="navbar navStyle navbar-expand-lg sticky-top" name="nav" id="colorNav">
-            <a class="navbar-brand" href="../index.php"><img src="/assets/rss.webp" alt="rss" style="width: 70px;" /></a>
+            <a class="navbar-brand" href="index.php"><img src="/assets/rss.webp" alt="rss" style="width: 70px;" /></a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span><i class="far fa-caret-square-down"></i></span>
             </button>
@@ -67,11 +78,11 @@ if (isset($_COOKIE) && isset($_POST['raz'])) {
                         <a class="nav-link" href="subject.php">Jeux</a>
                     </li>
                 </ul>
-                <form action="security.php" method="POST">
+                <form action="subject.php" method="POST">
                     <ul class="navbar-nav justify-content-end">
                         <li class="nav-item my-auto m-2">
                             <select class="form-control" id="fluxChoice" name="selectTheme">
-                                <option selected>Choisir un thème...</option>
+                                <option value="none" selected>Choisir un thème...</option>
                                 <option value="blackButton" id="blackButton" class="black">Thème black</option>
                                 <option value="blueButton" id="blueButton" class="blue">Thème blue</option>
                                 <option value="redButton" id="redButton" class="red">Thème red</option>
@@ -79,17 +90,17 @@ if (isset($_COOKIE) && isset($_POST['raz'])) {
                         </li>
                         <li class="nav-item my-auto m-2">
                             <select class="form-control" id="fluxChoice" name="selectNbFlux">
-                                <option selected>Affichage des flux...</option>
+                                <option value="none" selected>Affichage des flux...</option>
                                 <option value="3">Afficher 3 flux RSS</option>
                                 <option value="5">Afficher 5 flux RSS</option>
                                 <option value="8">Afficher 8 flux RSS</option>
                             </select>
                         </li>
                         <li class="nav-item">
-                            <button type="submit" name="choice" class="btn btn-sm ml-3">Valider</button>
+                            <button type="submit" name="choice" class="buttonStyle1 btn btn-sm ml-3">Valider</button>
                         </li>
                         <li class="nav-item">
-                            <button type="submit" name="raz" class="btn btn-sm ml-3">Par défaut</button>
+                            <button type="submit" name="raz" class="buttonStyle1 btn btn-sm ml-3">Par défaut</button>
                         </li>
                     </ul>
                 </form>
@@ -100,7 +111,7 @@ if (isset($_COOKIE) && isset($_POST['raz'])) {
         <div class="container-fluid m-0">
             <div class="row d-flex text-left justify-content-around mt-4">
                 <?php
-                $url = "https://www.01net.com/rss/actualites/securite/";
+                $url = "https://www.01net.com/rss/actualites/jeux/";
                 $rss = simplexml_load_file($url);
                 $itemIndex = 1;
                 foreach ($rss->channel->item as $item) {
@@ -118,7 +129,7 @@ if (isset($_COOKIE) && isset($_POST['raz'])) {
                                         <h5 class="card-title">' . $item->title . '</h5>
                                         <p class="card-text">' . $description[0] . '</p>
                                         <p class="card-text"><small class="text-muted">' . $date . '</small></p>
-                                        <a type="button" href="' . $item->link . '" target="_blank">Allez sur le site</a>
+                                        <a type="button" href="' . $item->link . '" target="_blank" class="colorHref">Allez sur le site</a>
                                         </div>
                                         </div>
                                     </div>
@@ -129,6 +140,7 @@ if (isset($_COOKIE) && isset($_POST['raz'])) {
                     };
                 };
                 ?>
+
             </div>
         </div>
 
